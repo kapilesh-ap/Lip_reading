@@ -13,11 +13,10 @@ st.set_page_config(layout='wide')
 
 #setting up sidebar
 with st.sidebar:
-    st.image("https://play-lh.googleusercontent.com/1JiBmw1jLbAmIHElKi31gJtzV8nmBT2EC1TCHx-HaaeAuV94YQLm7irQqYUvrwFKsA")
-    st.title("LipSyncr: Syncing Lips and Messages")
-    st.info('Originally developed from the LipNet deep learning model, the application lip reads from a video and transcribes what a person is actually saying.')
+    st.title("Python Project : Team Bug Catchers")
+    st.info('Lip Reading and Transcribing')
 
-st.title('Lip-Reading Web App')
+st.title('Lip Reading Using DeepLearning')
 #generating alist of options or videos
 options= os.listdir(os.path.join('data','s1'))
 selected_video = st.selectbox('Choose a video',options)
@@ -28,7 +27,7 @@ col1,col2 =st.columns(2)
 if options:
     #renderiing the input video
     with col1:
-        st.info('The video below displays the converted video in mp4 format. This is your input video.')
+        st.info('Input_video')
         filepath = os.path.join('data', 's1', selected_video)
         os.system(f'ffmpeg -i {filepath} -vcodec libx264 test_video.mp4 -y')
 
@@ -43,7 +42,7 @@ if options:
 
 
     with col2:
-        st.info("Actual Transcript of the Input Video:")
+        st.info("Transcript of the Input Video:")
         video, annotations = load_data(tf.convert_to_tensor(filepath))
         conv1 = tf.strings.reduce_join(num_to_char(annotations)).numpy().decode('utf-8')
         st.text(conv1)
@@ -52,7 +51,7 @@ if options:
         imageio.mimsave('animation.gif', video, duration=100)
         st.image('animation.gif',width=350)
 
-        st.info("MODEL   PREDICTED   TRANSCRIPTION: ")
+        st.info("Model   Predictions: ")
         model = load_model()
         yhat = model.predict(tf.expand_dims(video, axis=0))
         decoder = tf.keras.backend.ctc_decode(yhat, [75], greedy=True)[0][0].numpy()
