@@ -1,5 +1,5 @@
-!pip install opencv-python matplotlib imageio gdown tensorflow
-!pip list
+pip install opencv-python matplotlib imageio gdown tensorflow
+pip list
 import base64
 
 import tensorflow as tf
