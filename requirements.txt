@@ -3,5 +3,4 @@ matplotlib
 imageio 
 gdown 
 tensorflow
-cv2
 typing
